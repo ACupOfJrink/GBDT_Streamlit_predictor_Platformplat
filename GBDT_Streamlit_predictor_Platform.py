@@ -36,8 +36,9 @@ thal_options = {
 # Define feature names
 feature_names = [    "Age", "Sex", "Chest Pain Type", "Resting Blood Pressure", "Serum Cholesterol",    "Fasting Blood Sugar", "Resting ECG", "Max Heart Rate", "Exercise Induced Angina",    "ST Depression", "Slope", "Number of Vessels", "Thal"]
 # Streamlit user interface
-st.title("GBDT(XGBoost) Streamlit Predictor platform by GZHU")
+st.title("RFE Streamlit multi-model Predictor platform by GZHU")
 # age: numerical input
+icd_code = st.number_input("Icd-10:", min_value=1, max_value=100000, value=0)
 age = st.number_input("Age:", min_value=1, max_value=120, value=50)
 # sex: categorical selection
 sex = st.selectbox("Sex (0=Female, 1=Male):", options=[0, 1], format_func=lambda x: 'Female (0)' if x == 0 else 'Male (1)')
