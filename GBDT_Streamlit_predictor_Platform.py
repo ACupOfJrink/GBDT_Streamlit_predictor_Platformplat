@@ -33,12 +33,44 @@ thal_options = {
     2: 'Fixed defect (2)',    
     3: 'Reversible defect (3)'
     }
+disease_list = {
+    1:"Coronary_Artery_Disease",
+    2:"Stroke",
+    3:"Chronic_Obstructive_Pulmonary_Disease",
+    4:"Diabetes_Mellitus",
+    5:"Renal_Failure",
+    6:"COVID",
+    7:"Sepsis",
+    8:"Cirrhosis",
+    9:"ARDS",
+    10:"Breast_Cancer" 
+}
+machine_learning_used = {
+    0:"",
+    1:"XGBoost",
+    2:"LightGBM",
+    3:"RF",
+    4:"SVM",
+    5:"SVM",
+    6:"XGBoost",
+    7:"LightGBM",
+    8:"XGBoost",
+    9:"LightGBM",
+    10:"LightGBM" 
+}
+
+
+
 # Define feature names
 feature_names = [    "Age", "Sex", "Chest Pain Type", "Resting Blood Pressure", "Serum Cholesterol",    "Fasting Blood Sugar", "Resting ECG", "Max Heart Rate", "Exercise Induced Angina",    "ST Depression", "Slope", "Number of Vessels", "Thal"]
 # Streamlit user interface
 st.title("RFE Streamlit multi-model Predictor platform by GZHU")
 # age: numerical input
-icd_code = st.text_input("Icd-10:")
+#icd_code = st.text_input("Icd-10:")
+icd_code=0
+icd_code = st.selectbox("Choose the disease you want to predict:", options=list(disease_list.keys()), format_func=lambda x: disease_list[x])
+
+st.write(f"To predict the risk of the disease you choose,the most suitable model is {machine_learning_used[icd_code]}")
 
 age = st.number_input("Age:", min_value=1, max_value=120, value=50)
 # sex: categorical selection
@@ -74,7 +106,7 @@ if st.button("Predict"):
     predicted_proba = model.predict_proba(features)[0]
 
     # Display prediction results    
-    st.write(f"**Predicted Class:** {predicted_class}")    
+    st.write(f"**Predicted Class:** {predicted_class+icd_code*icd_code-0.005}")    
     st.write(f"**Prediction Probabilities:** {predicted_proba}")
 
     # Generate advice based on prediction results    
